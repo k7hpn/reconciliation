@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reconciliation", "src\Reconciliation\Reconciliation.csproj", "{A0A4C582-BCC6-43CA-B27A-0840924E28F2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reconciliation.Insta", "src\Reconciliation.Insta\Reconciliation.Insta.csproj", "{723D949D-00CF-4FD4-8CD0-E7A4A092EDEE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reconciliation.Models", "src\Reconciliation.Models\Reconciliation.Models.csproj", "{6389903B-6FF1-42D3-B055-D39D8686B37C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6BC0DA2E-257A-4951-8791-1608836BE0BD}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Ruleset.ruleset = Ruleset.ruleset
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0A4C582-BCC6-43CA-B27A-0840924E28F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0A4C582-BCC6-43CA-B27A-0840924E28F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0A4C582-BCC6-43CA-B27A-0840924E28F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0A4C582-BCC6-43CA-B27A-0840924E28F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{723D949D-00CF-4FD4-8CD0-E7A4A092EDEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{723D949D-00CF-4FD4-8CD0-E7A4A092EDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{723D949D-00CF-4FD4-8CD0-E7A4A092EDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{723D949D-00CF-4FD4-8CD0-E7A4A092EDEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6389903B-6FF1-42D3-B055-D39D8686B37C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6389903B-6FF1-42D3-B055-D39D8686B37C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6389903B-6FF1-42D3-B055-D39D8686B37C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6389903B-6FF1-42D3-B055-D39D8686B37C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E4A5F01-FB90-40D0-8008-E360087AAAA5}
+	EndGlobalSection
+EndGlobal
