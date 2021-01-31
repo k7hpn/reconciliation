@@ -7,19 +7,23 @@ using Spectre.Console.Cli;
 namespace Reconciliation.Commands
 {
 #pragma warning disable CA1812
-    internal class ExamineBackupCommand : AsyncCommand<ExamineBackupSettings>
+    internal class GenerateMarkdownCommand : AsyncCommand<GenerateMarkdownSettings>
     {
         private ILogger Logger { get; }
         private Insta.Backup Backup { get; }
-        public ExamineBackupCommand(ILogger<ExamineBackupCommand> logger,
-            Insta.Backup backup)
+        private Output.Markdown Output { get; }
+
+        public GenerateMarkdownCommand(ILogger<GenerateMarkdownCommand> logger,
+            Insta.Backup backup,
+            Output.Markdown output)
         {
             Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             Backup = backup ?? throw new ArgumentNullException(nameof(backup));
+            Output = output ?? throw new ArgumentNullException(nameof(output));
         }
 
         public override Task<int> ExecuteAsync(CommandContext context,
-            ExamineBackupSettings settings)
+            GenerateMarkdownSettings settings)
         {
             if (context == null)
             {
@@ -36,9 +40,13 @@ namespace Reconciliation.Commands
         }
 
         private async Task<int> ExecuteInternalAsync(CommandContext context,
-            ExamineBackupSettings settings)
+            GenerateMarkdownSettings settings)
         {
-            await Backup.Parse(context.Name, settings.InstagramPath).ConfigureAwait(false);
+            var ig
+                = await Backup.Parse(context.Name, settings.InstagramPath).ConfigureAwait(false);
+            await Output.GeneratePostsAsync(context.Name,
+                settings.OutputPath,
+                ig);
             return await Task.FromResult(0).ConfigureAwait(false);
         }
     }

@@ -19,7 +19,7 @@ namespace Reconciliation.Insta
             Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<int> Parse(string commandName, string path)
+        public async Task<IList<MediaFile>> Parse(string commandName, string path)
         {
             Logger.LogInformation("Performing {CommandName} on backup path: {InstagramPath}",
                 commandName,
@@ -75,6 +75,8 @@ namespace Reconciliation.Insta
                 }
             }
 
+            var media = new List<MediaFile>();
+
             if (mediaFiles.Count == 0)
             {
                 Logger.LogError("Unable to find any media.json files in the Instagram backup.");
@@ -90,17 +92,19 @@ namespace Reconciliation.Insta
                 int videoCount = 0;
                 foreach (var mediaFile in mediaFiles)
                 {
-                    var medias = await DeserializeInstagram<MediaFile>(mediaFile)
+                    var mediaItems = await DeserializeInstagram<MediaFile>(mediaFile)
                         .ConfigureAwait(false);
-                    medias.SourceFile = mediaFile;
+                    mediaItems.SourceFile = mediaFile;
+                    mediaItems.EarliestPhoto = mediaItems.Photos.Min(_ => _.TakenAt);
+                    media.Add(mediaItems);
                     Logger.LogInformation("File {FileCount}: {PhotoCount} photos and {VideoCount} videos",
                         fileCount++,
-                        medias.Photos.Length,
-                        medias.Videos.Length);
-                    photoCount += medias.Photos.Length;
-                    videoCount += medias.Videos.Length;
-                    firstPhoto = Math.Min(medias.Photos.Min(_ => _.TakenAt).Ticks, firstPhoto);
-                    lastPhoto = Math.Max(medias.Photos.Max(_ => _.TakenAt).Ticks, lastPhoto);
+                        mediaItems.Photos.Length,
+                        mediaItems.Videos.Length);
+                    photoCount += mediaItems.Photos.Length;
+                    videoCount += mediaItems.Videos.Length;
+                    firstPhoto = Math.Min(mediaItems.Photos.Min(_ => _.TakenAt).Ticks, firstPhoto);
+                    lastPhoto = Math.Max(mediaItems.Photos.Max(_ => _.TakenAt).Ticks, lastPhoto);
                 }
                 Logger.LogInformation("Total {TotalPhotos} photos, {TotalVideos} videos",
                     photoCount,
@@ -111,7 +115,7 @@ namespace Reconciliation.Insta
                     new DateTime(lastPhoto));
             }
 
-            return await Task.FromResult(0).ConfigureAwait(false);
+            return media;
         }
 
         private async Task<T> DeserializeInstagram<T>(string filePath)

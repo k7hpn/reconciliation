@@ -1,10 +1,10 @@
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using Spectre.Console.Cli;
 
-namespace Reconciliation.Commands.Setting
+namespace Reconciliation.Commands.Settings
 {
 #pragma warning disable CA1812
-    internal class ConsoleSettings : CommandSettings
+    internal class ExamineBackupSettings : CommandSettings
     {
         [CommandArgument(0, "<Instagram export path>")]
         [Description("Path to export of Instagram files")]
